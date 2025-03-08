@@ -171,3 +171,50 @@ th {
 .toggle-games-button:hover {
     background-color: #E0E2E0;
 }
+
+/* Table layout updates */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    table-layout: fixed;
+    /* Fixed layout for more consistent column widths */
+}
+
+th,
+td {
+    padding: 6px 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    font-size: 0.9rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Column widths */
+.game-number {
+    width: 10%;
+}
+
+.player-name {
+    width: 18%;
+}
+
+.game-status {
+    width: 18%;
+}
+
+/* Team column headers */
+thead th[colspan="2"] {
+    text-align: center;
+}
+
+/* Update the more-games-cell to span all columns */
+.more-games-cell {
+    text-align: center;
+    padding: 8px;
+    color: #666;
+    font-style: italic;
+    font-size: 0.9rem;
+}

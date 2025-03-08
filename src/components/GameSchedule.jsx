@@ -36,6 +36,7 @@ function GameSchedule({ schedule, currentGameIndex, onGameDone, onReset, players
                     </div>
                 )}
             </div>
+
             <div className="schedule-table">
                 {upcomingGames.length > 4 && (
                     <button
@@ -49,8 +50,8 @@ function GameSchedule({ schedule, currentGameIndex, onGameDone, onReset, players
                     <thead>
                         <tr>
                             <th>Game</th>
-                            <th>Team 1</th>
-                            <th>Team 2</th>
+                            <th colSpan="2">Team 1</th>
+                            <th colSpan="2">Team 2</th>
                             <th>Status</th>
                         </tr>
                     </thead>
@@ -71,8 +72,10 @@ function GameSchedule({ schedule, currentGameIndex, onGameDone, onReset, players
                                     }
                                 >
                                     <td>{gameIndex + 1}</td>
-                                    <td>{game.team1[0].name} & {game.team1[1].name}</td>
-                                    <td>{game.team2[0].name} & {game.team2[1].name}</td>
+                                    <td className="player-name">{game.team1[0].name}</td>
+                                    <td className="player-name">{game.team1[1].name}</td>
+                                    <td className="player-name">{game.team2[0].name}</td>
+                                    <td className="player-name">{game.team2[1].name}</td>
                                     <td>
                                         {game.completed
                                             ? <span className="timestamp">{game.completedAt}</span>

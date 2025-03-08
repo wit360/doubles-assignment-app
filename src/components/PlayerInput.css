@@ -1,24 +1,101 @@
 .player-input-container {
     background-color: #F9F9F9;
-    padding: 20px;
+    padding: 25px;
     border-radius: 8px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    color: #333333;
+    /* Ensure text is visible */
+}
+
+.player-input-container h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #333333;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.player-count {
+    margin-bottom: 25px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #333333;
+}
+
+.player-select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: white;
+    color: #333333;
+}
+
+.player-names {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+h3 {
+    margin-top: 0;
+    margin-bottom: 5px;
+    color: #333333;
+}
+
+/* Changed from grid to vertical list */
+.player-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+}
+
+.player-row {
+    width: 100%;
+}
+
+.player-input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 12px;
+    background-color: white;
+    color: #333333;
+    margin-right: 50px;
+    /* Ensure input text is visible */
+}
+
+.player-input::placeholder {
+    color: #999999;
+    /* Ensure placeholder text is visible */
+}
+
+.player-input:focus {
+    outline: none;
+    border-color: #879676;
+    box-shadow: 0 0 0 2px rgba(135, 150, 118, 0.2);
 }
 
 .generate-button {
     background-color: #879676;
-    /* Muted green */
     color: white;
     border: none;
-    padding: 10px 20px;
+    padding: 12px 20px;
     font-size: 16px;
     border-radius: 4px;
     cursor: pointer;
-    margin-top: 20px;
     width: 100%;
+    margin-top: 0px;
+    transition: background-color 0.2s;
 }
 
 .generate-button:hover {
     background-color: #7A8768;
-    /* Slightly darker */
 }
