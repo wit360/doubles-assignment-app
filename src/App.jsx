@@ -27,19 +27,37 @@ function generateGameAssignments(players) {
     });
   });
 
+  // Track how many games each player has played
+  const gamesPlayed = {};
+  players.forEach(player => {
+    gamesPlayed[player.id] = 0;
+  });
+
   // Function to score a potential game based on fairness
   const scoreGame = (team1, team2) => {
     let score = 0;
 
-    // Check partnerships
-    score += partnerHistory[team1[0].id][team1[1].id];
-    score += partnerHistory[team2[0].id][team2[1].id];
+    // Heavily penalize repeated partnerships
+    const partnerPenalty = 10;
+    score += partnerHistory[team1[0].id][team1[1].id] * partnerPenalty;
+    score += partnerHistory[team2[0].id][team2[1].id] * partnerPenalty;
 
-    // Check opponents
+    // Penalize repeated opponents
+    const opponentPenalty = 5;
     team1.forEach(p1 => {
       team2.forEach(p2 => {
-        score += opponentHistory[p1.id][p2.id];
+        score += opponentHistory[p1.id][p2.id] * opponentPenalty;
       });
+    });
+
+    // Penalize uneven play distribution
+    const players = [...team1, ...team2];
+    const playCountPenalty = 3;
+    const avgGamesPlayed = players.reduce((sum, p) => sum + gamesPlayed[p.id], 0) / players.length;
+
+    players.forEach(p => {
+      // Square the difference to penalize larger disparities more heavily
+      score += Math.pow(gamesPlayed[p.id] - avgGamesPlayed, 2) * playCountPenalty;
     });
 
     return score;
@@ -60,37 +78,85 @@ function generateGameAssignments(players) {
         opponentHistory[p2.id][p1.id]++;
       });
     });
+
+    // Update games played
+    [...team1, ...team2].forEach(p => {
+      gamesPlayed[p.id]++;
+    });
   };
 
-  // Generate 10 games
+  // Generate all possible team combinations
+  const generateAllPossibleTeams = () => {
+    const teams = [];
+    for (let i = 0; i < players.length; i++) {
+      for (let j = i + 1; j < players.length; j++) {
+        teams.push([players[i], players[j]]);
+      }
+    }
+    return teams;
+  };
+
+  // Generate all possible game combinations (team1 vs team2)
+  const generateAllPossibleGames = (teams) => {
+    const games = [];
+    for (let i = 0; i < teams.length; i++) {
+      for (let j = i + 1; j < teams.length; j++) {
+        // Check if teams have no common players
+        const team1 = teams[i];
+        const team2 = teams[j];
+        const team1Ids = new Set([team1[0].id, team1[1].id]);
+        const team2Ids = new Set([team2[0].id, team2[1].id]);
+
+        if (team1Ids.size + team2Ids.size === 4) { // No overlapping players
+          games.push({ team1, team2 });
+        }
+      }
+    }
+    return games;
+  };
+
+  const allTeams = generateAllPossibleTeams();
+  const allPossibleGames = generateAllPossibleGames(allTeams);
+
+  // Generate 20 games
   const schedule = [];
   for (let i = 0; i < 20; i++) {
     let bestGame = null;
     let bestScore = Infinity;
 
-    // Try multiple random combinations to find the best one
-    for (let attempt = 0; attempt < 100; attempt++) {
-      const shuffledPlayers = [...players].sort(() => Math.random() - 0.5);
+    // For smaller player counts, we need to consider all players
+    const eligibleGames = allPossibleGames.filter(game => {
+      // For 4 players, all games are eligible
+      if (players.length === 4) return true;
 
-      // Handle cases where we don't have exactly 4 players
-      const gamePlayers = shuffledPlayers.slice(0, 4);
+      // For more than 4 players, prioritize players who have played fewer games
+      const gamePlayers = [...game.team1, ...game.team2];
 
-      // If we have fewer than 4 players, we need to reuse some
-      if (players.length < 4) {
-        while (gamePlayers.length < 4) {
-          const randomIndex = Math.floor(Math.random() * players.length);
-          gamePlayers.push({ ...players[randomIndex], id: players[randomIndex].id + 100 * gamePlayers.length });
-        }
+      // If we have 5-8 players, we want to prioritize those who have played less
+      if (players.length >= 5) {
+        // Calculate average games played
+        const avgGamesPlayed = Object.values(gamesPlayed).reduce((sum, count) => sum + count, 0) / players.length;
+
+        // Check if any player in this game has played significantly more than average
+        const maxExtraGames = 2; // Allow players to play at most 2 more games than average
+        const overplayed = gamePlayers.some(p => gamesPlayed[p.id] > avgGamesPlayed + maxExtraGames);
+
+        if (overplayed) return false;
       }
 
-      const team1 = [gamePlayers[0], gamePlayers[1]];
-      const team2 = [gamePlayers[2], gamePlayers[3]];
+      return true;
+    });
 
-      const score = scoreGame(team1, team2);
+    // If we have no eligible games (rare edge case), consider all games
+    const gamesToConsider = eligibleGames.length > 0 ? eligibleGames : allPossibleGames;
+
+    // Try each possible game to find the best one
+    for (const game of gamesToConsider) {
+      const score = scoreGame(game.team1, game.team2);
 
       if (score < bestScore) {
         bestScore = score;
-        bestGame = { team1, team2 };
+        bestGame = game;
       }
     }
 
