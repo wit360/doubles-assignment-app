@@ -13,7 +13,6 @@ function GameSchedule({ schedule, currentGameIndex, onGameDone, onReset, players
 
     return (
         <div className="game-schedule-container">
-            <h3>Current Game</h3>
             <div className="current-game">
                 {schedule[currentGameIndex] && (
                     <div className="game-card current">
@@ -49,7 +48,7 @@ function GameSchedule({ schedule, currentGameIndex, onGameDone, onReset, players
                 <table>
                     <thead>
                         <tr>
-                            <th>Game</th>
+                            <th></th>
                             <th>Team 1</th>
                             <th>Team 2</th>
                             <th>Status</th>
@@ -71,7 +70,7 @@ function GameSchedule({ schedule, currentGameIndex, onGameDone, onReset, players
                                                     : ''
                                     }
                                 >
-                                    <td>{gameIndex + 1}</td>
+                                    <td className="game-num">{gameIndex + 1}</td>
                                     <td>{game.team1[0].name} & {game.team1[1].name}</td>
                                     <td>{game.team2[0].name} & {game.team2[1].name}</td>
                                     <td>

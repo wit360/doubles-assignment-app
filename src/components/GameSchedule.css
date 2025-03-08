@@ -181,9 +181,22 @@ table {
     /* Fixed layout for more consistent column widths */
 }
 
+.schedule-table table th:first-child,
+.schedule-table table td:first-child {
+    width: 30px;
+    /* Make the Game # column smaller */
+}
+
+.schedule-table table th:last-child,
+.schedule-table table td:last-child {
+    width: 60px;
+    /* Make the Game # column smaller */
+}
+
+
 th,
 td {
-    padding: 6px 10px;
+    padding: 3px 4px;
     text-align: left;
     border-bottom: 1px solid #ddd;
     font-size: 0.9rem;

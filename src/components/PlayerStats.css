@@ -12,7 +12,7 @@
 
 .stats-table th,
 .stats-table td {
-    padding: 6px 10px;
+    padding: 2px 2px;
     text-align: left;
     border-bottom: 1px solid #ddd;
     font-size: 0.9rem;
@@ -35,7 +35,7 @@
 
 .pairing-matrix th,
 .pairing-matrix td {
-    padding: 6px;
+    padding: 2px;
     text-align: center;
     border: 1px solid #ddd;
     font-size: 0.9rem;
@@ -72,7 +72,7 @@
 
 .stats-table.transposed th,
 .stats-table.transposed td {
-    padding: 6px 10px;
+    padding: 2px 10px;
     text-align: center;
     border: 1px solid #ddd;
     font-size: 0.9rem;

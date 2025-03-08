@@ -214,7 +214,11 @@ function App() {
     if (currentGameIndex < gameSchedule.length - 1) {
       const updatedSchedule = [...gameSchedule];
       updatedSchedule[currentGameIndex].completed = true;
-      updatedSchedule[currentGameIndex].completedAt = new Date().toLocaleString();
+      // updatedSchedule[currentGameIndex].completedAt = new Date().toLocaleString();
+      updatedSchedule[currentGameIndex].completedAt = (new Date()).toLocaleTimeString(navigator.language, {
+        hour: '2-digit',
+        minute: '2-digit'
+      });
       setGameSchedule(updatedSchedule);
       setCurrentGameIndex(currentGameIndex + 1);
     }
