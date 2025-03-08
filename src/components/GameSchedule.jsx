@@ -1,13 +1,20 @@
+import { useState } from 'react';
 import PlayerStats from './PlayerStats';
 import './GameSchedule.css';
 
 function GameSchedule({ schedule, currentGameIndex, onGameDone, onReset, players }) {
+    const [showAllGames, setShowAllGames] = useState(false);
+
+    // Calculate which games to display
+    const completedGames = schedule.filter((game, index) => index < currentGameIndex);
+    const upcomingGames = schedule.filter((game, index) => index >= currentGameIndex);
+    const upcomingToShow = upcomingGames.slice(0, showAllGames ? upcomingGames.length : 4);
+    const gamesToDisplay = [...completedGames, ...upcomingToShow];
+
     return (
         <div className="game-schedule-container">
-            <h2>Game Schedule</h2>
-
+            <h3>Current Game</h3>
             <div className="current-game">
-                <h3>Current Game</h3>
                 {schedule[currentGameIndex] && (
                     <div className="game-card current">
                         <div className="team">
@@ -24,14 +31,20 @@ function GameSchedule({ schedule, currentGameIndex, onGameDone, onReset, players
                             onClick={onGameDone}
                             disabled={currentGameIndex >= schedule.length - 1 && schedule[currentGameIndex].completed}
                         >
-                            {schedule[currentGameIndex].completed ? 'Game Completed' : 'Game Done'}
+                            {schedule[currentGameIndex].completed ? 'Game Completed' : 'Next'}
                         </button>
                     </div>
                 )}
             </div>
-
             <div className="schedule-table">
-                <h3>Full Schedule</h3>
+                {upcomingGames.length > 4 && (
+                    <button
+                        className="toggle-games-button"
+                        onClick={() => setShowAllGames(!showAllGames)}
+                    >
+                        {showAllGames ? 'Show Fewer Games' : 'Show All Games'}
+                    </button>
+                )}
                 <table>
                     <thead>
                         <tr>
@@ -42,36 +55,40 @@ function GameSchedule({ schedule, currentGameIndex, onGameDone, onReset, players
                         </tr>
                     </thead>
                     <tbody>
-                        {schedule.map((game, index) => (
-                            <tr
-                                key={index}
-                                className={
-                                    index === currentGameIndex
-                                        ? 'current-row'
-                                        : index === currentGameIndex + 1
-                                            ? 'next-row'
-                                            : game.completed
-                                                ? 'completed-row'
-                                                : ''
-                                }
-                            >
-                                <td>{index + 1}</td>
-                                <td>{game.team1[0].name} & {game.team1[1].name}</td>
-                                <td>{game.team2[0].name} & {game.team2[1].name}</td>
-                                <td>
-                                    {game.completed
-                                        ? <span className="timestamp">{game.completedAt}</span>
-                                        : index === currentGameIndex
-                                            ? <span className="current-status">Current</span>
-                                            : index === currentGameIndex + 1
-                                                ? <span className="next-status">Up Next</span>
-                                                : <span className="pending-status">Pending</span>
+                        {gamesToDisplay.map((game, index) => {
+                            const gameIndex = schedule.indexOf(game);
+                            return (
+                                <tr
+                                    key={gameIndex}
+                                    className={
+                                        gameIndex === currentGameIndex
+                                            ? 'current-row'
+                                            : gameIndex === currentGameIndex + 1
+                                                ? 'next-row'
+                                                : game.completed
+                                                    ? 'completed-row'
+                                                    : ''
                                     }
-                                </td>
-                            </tr>
-                        ))}
+                                >
+                                    <td>{gameIndex + 1}</td>
+                                    <td>{game.team1[0].name} & {game.team1[1].name}</td>
+                                    <td>{game.team2[0].name} & {game.team2[1].name}</td>
+                                    <td>
+                                        {game.completed
+                                            ? <span className="timestamp">{game.completedAt}</span>
+                                            : gameIndex === currentGameIndex
+                                                ? <span className="current-status">Current</span>
+                                                : gameIndex === currentGameIndex + 1
+                                                    ? <span className="next-status">Up Next</span>
+                                                    : <span className="pending-status">Pending</span>
+                                        }
+                                    </td>
+                                </tr>
+                            );
+                        })}
                     </tbody>
                 </table>
+
             </div>
 
             <PlayerStats

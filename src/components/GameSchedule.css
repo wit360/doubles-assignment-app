@@ -1,12 +1,25 @@
 .game-schedule-container {
     background-color: #FFFFFF;
-    padding: 20px;
+    padding: 15px;
     border-radius: 8px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
+.game-schedule-container h2 {
+    margin-top: 0;
+    margin-bottom: 12px;
+    font-size: 1.3rem;
+}
+
+.game-schedule-container h3 {
+    margin-top: 10px;
+    margin-bottom: 8px;
+    font-size: 1.1rem;
+    text-align: center;
+}
+
 .current-game {
-    margin-bottom: 30px;
+    margin-bottom: 15px;
 }
 
 .game-card {
@@ -14,7 +27,7 @@
     justify-content: space-between;
     align-items: center;
     background-color: #F9F9F9;
-    padding: 20px;
+    padding: 12px;
     border-radius: 8px;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
     position: relative;
@@ -29,23 +42,35 @@
     flex: 1;
 }
 
+.team h4 {
+    margin-top: 0;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+}
+
+.team p {
+    margin: 0;
+    font-size: 0.9rem;
+}
+
 .vs {
     font-weight: bold;
-    font-size: 24px;
-    margin: 0 20px;
+    font-size: 1rem;
+    margin: 0 10px;
 }
 
 .game-done-button {
     position: absolute;
-    bottom: -15px;
+    bottom: -12px;
     left: 50%;
     transform: translateX(-50%);
-    background-color: #879676;
+    background-color: #769678;
     color: white;
     border: none;
-    padding: 8px 16px;
+    padding: 5px 12px;
     border-radius: 4px;
     cursor: pointer;
+    font-size: 1.0rem;
 }
 
 .game-done-button:disabled {
@@ -54,7 +79,7 @@
 }
 
 .schedule-table {
-    margin-top: 40px;
+    margin-top: 20px;
 }
 
 table {
@@ -65,9 +90,10 @@ table {
 
 th,
 td {
-    padding: 15px;
+    padding: 6px 10px;
     text-align: left;
     border-bottom: 1px solid #ddd;
+    font-size: 0.9rem;
 }
 
 th {
@@ -89,35 +115,59 @@ th {
 }
 
 .timestamp {
-    font-size: 12px;
+    font-size: 0.8rem;
     color: #999;
 }
 
 .current-status {
     color: #879676;
     font-weight: bold;
+    font-size: 0.8rem;
 }
 
 .next-status {
     color: #4682B4;
     font-weight: bold;
+    font-size: 0.8rem;
 }
 
 .pending-status {
     color: #999;
+    font-size: 0.8rem;
 }
 
 .reset-button {
-    background-color: #D3D3D3;
+    background-color: #efb93c;
     color: #333333;
     border: none;
-    padding: 10px 20px;
-    font-size: 16px;
+    padding: 8px 16px;
+    font-size: 0.9rem;
     border-radius: 4px;
     cursor: pointer;
-    margin-top: 20px;
+    margin-top: 15px;
+    width: 100%;
 }
 
 .reset-button:hover {
-    background-color: #C0C0C0;
+    background-color: #ef9001;
+}
+
+.toggle-games-button {
+    background-color: #F0F2EE;
+    color: #333333;
+    border: none;
+    padding: 6px 12px;
+    font-size: 0.7rem;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+
+.toggle-games-button:hover {
+    background-color: #E0E2E0;
 }

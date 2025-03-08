@@ -2,7 +2,7 @@ import { useState } from 'react';
 import './PlayerInput.css';
 
 function PlayerInput({ onGenerateSchedule }) {
-    const [numPlayers, setNumPlayers] = useState(4);
+    const [numPlayers, setNumPlayers] = useState(6);
     const [playerNames, setPlayerNames] = useState(Array(8).fill(''));
 
     const handleNumPlayersChange = (e) => {

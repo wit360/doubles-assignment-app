@@ -1,22 +1,94 @@
 .player-stats-container {
-    margin-top: 30px;
-    margin-bottom: 30px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .stats-table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 10px;
+    margin-top: 8px;
+    margin-bottom: 15px;
 }
 
 .stats-table th,
 .stats-table td {
-    padding: 12px;
+    padding: 6px 10px;
     text-align: left;
     border-bottom: 1px solid #ddd;
+    font-size: 0.9rem;
 }
 
 .stats-table th {
     background-color: #F0F2EE;
     font-weight: bold;
+}
+
+.pairing-matrix-container {
+    margin-top: 10px;
+    overflow-x: auto;
+}
+
+.pairing-matrix {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.pairing-matrix th,
+.pairing-matrix td {
+    padding: 6px;
+    text-align: center;
+    border: 1px solid #ddd;
+    font-size: 0.9rem;
+}
+
+.pairing-matrix th {
+    background-color: #F0F2EE;
+    font-weight: bold;
+}
+
+.diagonal-cell {
+    background-color: #f2f2f2;
+}
+
+.paired-cell {
+    background-color: #E7F3E8;
+}
+
+/* Compact headers */
+.player-stats-container h3 {
+    margin-top: 12px;
+    margin-bottom: 6px;
+    font-size: 1.1rem;
+}
+
+.play-count-table {
+    margin-bottom: 15px;
+}
+
+.stats-table.transposed {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.stats-table.transposed th,
+.stats-table.transposed td {
+    padding: 6px 10px;
+    text-align: center;
+    border: 1px solid #ddd;
+    font-size: 0.9rem;
+}
+
+.stats-table.transposed th:first-child {
+    text-align: left;
+}
+
+.stats-table.transposed thead th {
+    background-color: #F0F2EE;
+    font-weight: bold;
+}
+
+.stats-table.transposed tbody th {
+    background-color: #F0F2EE;
+    font-weight: bold;
+    text-align: left;
 }
