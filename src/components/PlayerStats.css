@@ -1,0 +1,22 @@
+.player-stats-container {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.stats-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.stats-table th,
+.stats-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.stats-table th {
+    background-color: #F0F2EE;
+    font-weight: bold;
+}

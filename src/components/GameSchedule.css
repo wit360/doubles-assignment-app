@@ -1,0 +1,123 @@
+.game-schedule-container {
+    background-color: #FFFFFF;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.current-game {
+    margin-bottom: 30px;
+}
+
+.game-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #F9F9F9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    position: relative;
+}
+
+.game-card.current {
+    border: 1px solid #879676;
+}
+
+.team {
+    text-align: center;
+    flex: 1;
+}
+
+.vs {
+    font-weight: bold;
+    font-size: 24px;
+    margin: 0 20px;
+}
+
+.game-done-button {
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #879676;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.game-done-button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+.schedule-table {
+    margin-top: 40px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+th,
+td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #F0F2EE;
+    font-weight: bold;
+}
+
+.current-row {
+    background-color: #E7F3E8;
+}
+
+.next-row {
+    background-color: #F0F8FF;
+}
+
+.completed-row {
+    background-color: #F2F2F2;
+    color: #999;
+}
+
+.timestamp {
+    font-size: 12px;
+    color: #999;
+}
+
+.current-status {
+    color: #879676;
+    font-weight: bold;
+}
+
+.next-status {
+    color: #4682B4;
+    font-weight: bold;
+}
+
+.pending-status {
+    color: #999;
+}
+
+.reset-button {
+    background-color: #D3D3D3;
+    color: #333333;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.reset-button:hover {
+    background-color: #C0C0C0;
+}
