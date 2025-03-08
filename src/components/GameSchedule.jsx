@@ -97,9 +97,9 @@ function GameSchedule({ schedule, currentGameIndex, onGameDone, onReset, players
                 currentGameIndex={currentGameIndex}
             />
 
-            <button className="reset-button" onClick={onReset}>Reset & Start Over</button>
         </div>
     );
 }
 
+// <button className="reset-button" onClick={onReset}>Reset & Start Over</button>
 export default GameSchedule;
