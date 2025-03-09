@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
 import PlayerInput from './components/PlayerInput';
 import GameSchedule from './components/GameSchedule';
@@ -198,10 +198,33 @@ function generateGameAssignments(players) {
 
 
 
+// import { useState, useEffect } from 'react';
+// import './App.css';
+// import PlayerInput from './components/PlayerInput';
+// import GameSchedule from './components/GameSchedule';
+
 function App() {
-  const [players, setPlayers] = useState([]);
-  const [gameSchedule, setGameSchedule] = useState([]);
-  const [currentGameIndex, setCurrentGameIndex] = useState(0);
+  const [players, setPlayers] = useState(() => {
+    const savedPlayers = localStorage.getItem('doubles-players');
+    return savedPlayers ? JSON.parse(savedPlayers) : [];
+  });
+
+  const [gameSchedule, setGameSchedule] = useState(() => {
+    const savedSchedule = localStorage.getItem('doubles-schedule');
+    return savedSchedule ? JSON.parse(savedSchedule) : [];
+  });
+
+  const [currentGameIndex, setCurrentGameIndex] = useState(() => {
+    const savedIndex = localStorage.getItem('doubles-current-game');
+    return savedIndex ? parseInt(JSON.parse(savedIndex)) : 0;
+  });
+
+  // Save state to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem('doubles-players', JSON.stringify(players));
+    localStorage.setItem('doubles-schedule', JSON.stringify(gameSchedule));
+    localStorage.setItem('doubles-current-game', JSON.stringify(currentGameIndex));
+  }, [players, gameSchedule, currentGameIndex]);
 
   const generateSchedule = (playerList) => {
     setPlayers(playerList);
@@ -214,7 +237,6 @@ function App() {
     if (currentGameIndex < gameSchedule.length - 1) {
       const updatedSchedule = [...gameSchedule];
       updatedSchedule[currentGameIndex].completed = true;
-      // updatedSchedule[currentGameIndex].completedAt = new Date().toLocaleString();
       updatedSchedule[currentGameIndex].completedAt = (new Date()).toLocaleTimeString(navigator.language, {
         hour: '2-digit',
         minute: '2-digit'
@@ -222,6 +244,25 @@ function App() {
       setGameSchedule(updatedSchedule);
       setCurrentGameIndex(currentGameIndex + 1);
     }
+  };
+  const handleUndo = () => {
+    if (currentGameIndex > 0) {
+      const updatedSchedule = [...gameSchedule];
+      updatedSchedule[currentGameIndex - 1].completed = false;
+      updatedSchedule[currentGameIndex - 1].completedAt = null;
+      setGameSchedule(updatedSchedule);
+      setCurrentGameIndex(currentGameIndex - 1);
+    }
+  };
+  const handleReset = () => {
+    // Clear localStorage when resetting
+    localStorage.removeItem('doubles-players');
+    localStorage.removeItem('doubles-schedule');
+    localStorage.removeItem('doubles-current-game');
+
+    setPlayers([]);
+    setGameSchedule([]);
+    setCurrentGameIndex(0);
   };
 
   return (
@@ -233,11 +274,8 @@ function App() {
           schedule={gameSchedule}
           currentGameIndex={currentGameIndex}
           onGameDone={handleGameDone}
-          onReset={() => {
-            setPlayers([]);
-            setGameSchedule([]);
-            setCurrentGameIndex(0);
-          }}
+          onUndo={handleUndo}
+          onReset={handleReset}
           players={players}
         />
       )}

@@ -45,7 +45,7 @@ function PlayerInput({ onGenerateSchedule }) {
                 </div>
 
                 <div className="player-names">
-                    <h3>Player Names</h3>
+                    <h4>Names</h4>
                     {/* Changed to vertical layout - one player per line */}
                     <div className="player-list">
                         {Array.from({ length: numPlayers }).map((_, index) => (

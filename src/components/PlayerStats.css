@@ -1,4 +1,4 @@
-.player-stats-container {
+/* .player-stats-container {
     margin-top: 20px;
     margin-bottom: 20px;
 }
@@ -54,7 +54,6 @@
     background-color: #E7F3E8;
 }
 
-/* Compact headers */
 .player-stats-container h3 {
     margin-top: 12px;
     margin-bottom: 6px;
@@ -91,4 +90,75 @@
     background-color: #F0F2EE;
     font-weight: bold;
     text-align: left;
+} */
+
+.player-stats-container {
+    margin: 10px 0;
+}
+
+/* Transposed play count table */
+.play-count-table {
+    overflow-x: auto;
+    margin-bottom: 10px;
+}
+
+.stats-table.transposed {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+}
+
+.stats-table.transposed th,
+.stats-table.transposed td {
+    padding: 5px;
+    text-align: center;
+    border: 1px solid #ddd;
+    white-space: nowrap;
+}
+
+.stats-table.transposed th:first-child {
+    text-align: left;
+}
+
+.stats-table.transposed thead th {
+    background-color: #f5f5f5;
+    font-weight: 500;
+}
+
+.stats-table.transposed tbody th {
+    background-color: #f5f5f5;
+    font-weight: 500;
+    text-align: left;
+}
+
+/* Partnership matrix */
+.pairing-matrix-container {
+    overflow-x: auto;
+}
+
+.pairing-matrix {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+}
+
+.pairing-matrix th,
+.pairing-matrix td {
+    padding: 5px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+.pairing-matrix th {
+    background-color: #f5f5f5;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.diagonal-cell {
+    background-color: #f2f2f2;
+}
+
+.paired-cell {
+    background-color: #E7F3E8;
 }

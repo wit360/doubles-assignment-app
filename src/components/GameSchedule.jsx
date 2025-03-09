@@ -2,7 +2,7 @@ import { useState } from 'react';
 import PlayerStats from './PlayerStats';
 import './GameSchedule.css';
 
-function GameSchedule({ schedule, currentGameIndex, onGameDone, onReset, players }) {
+function GameSchedule({ schedule, currentGameIndex, onGameDone, onReset, players, onUndo }) {
     const [showAllGames, setShowAllGames] = useState(false);
 
     // Calculate which games to display
@@ -25,26 +25,36 @@ function GameSchedule({ schedule, currentGameIndex, onGameDone, onReset, players
                             <h4>Team 2</h4>
                             <p>{schedule[currentGameIndex].team2[0].name} & {schedule[currentGameIndex].team2[1].name}</p>
                         </div>
-                        <button
-                            className="game-done-button"
-                            onClick={onGameDone}
-                            disabled={currentGameIndex >= schedule.length - 1 && schedule[currentGameIndex].completed}
-                        >
-                            {schedule[currentGameIndex].completed ? 'Game Completed' : 'Next'}
-                        </button>
                     </div>
                 )}
             </div>
 
-            <div className="schedule-table">
-                {upcomingGames.length > 4 && (
+            <div className='button-container'>
+                <button
+                    className="game-done-button"
+                    onClick={onGameDone}
+                    disabled={currentGameIndex >= schedule.length - 1 && schedule[currentGameIndex].completed}
+                >
+                    {schedule[currentGameIndex].completed ? 'Game Completed' : 'Next'}
+                </button>
+                {currentGameIndex > 0 && (
                     <button
-                        className="toggle-games-button"
-                        onClick={() => setShowAllGames(!showAllGames)}
+                        className="undo-button"
+                        onClick={onUndo}
                     >
-                        {showAllGames ? 'Show Fewer Games' : 'Show All Games'}
+                        Undo
                     </button>
                 )}
+            </div>
+            {upcomingGames.length > 4 && (
+                <button
+                    className="toggle-button"
+                    onClick={() => setShowAllGames(!showAllGames)}
+                >
+                    {showAllGames ? 'Show Fewer Games' : 'Show All Games'}
+                </button>
+            )}
+            <div className="schedule-table">
                 <table>
                     <thead>
                         <tr>
@@ -97,9 +107,9 @@ function GameSchedule({ schedule, currentGameIndex, onGameDone, onReset, players
                 currentGameIndex={currentGameIndex}
             />
 
+            <button className="reset-button" onClick={onReset}>Reset & Start Over</button>
         </div>
     );
 }
 
-// <button className="reset-button" onClick={onReset}>Reset & Start Over</button>
 export default GameSchedule;
